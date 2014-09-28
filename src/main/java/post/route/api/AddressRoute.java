@@ -26,7 +26,7 @@ public class AddressRoute extends RouteBuilder {
 			.setBody(constant(null))
 		.otherwise()
 			// 結果データ作成（List<Map>の0番目のデータを返却）
-			.setBody().simple("${body[0]}")
+			.setBody(simple("${body[0]}"))
 		.end()
 		;
 	}
