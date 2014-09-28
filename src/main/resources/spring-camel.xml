@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring-2.14.0.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       ">
+
+	<!-- ルートの自動登録（サブディレクトリも検索される） @Componentが対象 -->
+	<context:component-scan base-package="post" />
+
+	<!-- SQLコンポーネントの全共通デフォルト値を設定 -->
+	<bean id="sql" class="org.apache.camel.component.sql.SqlComponent">
+		<property name="dataSource" ref="ds_mysql" />
+	</bean>
+
+	<!-- camelルート -->
+	<camelContext xmlns="http://camel.apache.org/schema/spring"
+		id="post">
+		<contextScan />
+		<restConfiguration component="jetty" host="0.0.0.0"
+			port="8881" bindingMode="json" >
+		</restConfiguration>
+	</camelContext>
+
+</beans>
